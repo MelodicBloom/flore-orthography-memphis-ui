@@ -19,7 +19,7 @@ export function Footer() {
           background:
             'linear-gradient(90deg, transparent, #C7D8C0 20%, #E9C46A 50%, #C7D8C0 80%, transparent)',
         }}
-      /}
+      />
 
       {/* Memphis dots background */}
       <div className="absolute top-12 right-16 opacity-10" aria-hidden="true">
