@@ -1,66 +1,104 @@
-import Reveal from '../motion/Reveal'
+import { Reveal } from '../motion/Reveal'
+import { MemphisDecor } from '../ui/MemphisDecor'
 
-const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@&%$!'
+const alphabet = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'
+const numbers = '0123456789!@#$%^&*()'
 
-export default function TypographySpecimen() {
+export function TypographySpecimen() {
   return (
-    <section className="bg-deep-green canvas-texture section-shell overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <Reveal>
-          <p className="font-sans text-xs tracking-wide uppercase text-ivory/40 mb-8">Typography</p>
-        </Reveal>
+    <section id="typography" className="bg-deep-green text-ivory relative overflow-hidden">
+      {/* Memphis squiggle accent */}
+      <div className="absolute bottom-12 right-12 opacity-20" aria-hidden="true">
+        <MemphisDecor variant="squiggle" color="#E9C46A" size="lg" opacity={1} />
+      </div>
 
-        <Reveal delay={0.05}>
-          <div className="mb-16">
-            <h2 className="font-display font-bold text-[clamp(5rem,14vw,12rem)] leading-none tracking-editorial text-ivory">
-              Typography
+      <div className="section-shell">
+        <Reveal className="mb-16">
+          <p className="text-xs uppercase tracking-widest text-ivory/40 font-mono mb-4">Typography</p>
+          <div className="flex flex-col md:flex-row items-start md:items-end gap-8">
+            <h2
+              className="font-display text-7xl md:text-9xl font-bold tracking-tightest leading-none"
+              style={{ textDecoration: 'underline', textDecorationColor: '#E9C46A', textUnderlineOffset: '12px' }}
+            >
+              Aa
             </h2>
+            <div className="font-sans text-7xl md:text-9xl font-bold leading-none text-ivory/60">
+              Aa
+            </div>
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16">
-          <Reveal delay={0.1}>
-            <div>
-              <div className="flex items-end gap-6 mb-6">
-                <span className="font-display font-bold text-8xl text-ivory leading-none">Aa</span>
-                <span className="font-sans text-8xl text-ivory leading-none">Aa</span>
-              </div>
-              <div className="space-y-1">
-                <p className="font-display text-sm text-ivory/60">Playfair Display</p>
-                <p className="font-sans text-xs text-ivory/40">Regular / Medium / Bold</p>
-                <p className="font-sans text-sm text-ivory/60 mt-3">Inter / Satoshi</p>
-                <p className="font-sans text-xs text-ivory/40">Regular / Medium / Bold</p>
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.15}>
-            <div>
-              <p className="font-display text-2xl italic text-ivory mb-4 leading-snug">
-                &ldquo;The quick brown fox<br />jumps over the lazy dog.&rdquo;
-              </p>
-              <p className="font-mono text-xs text-ivory/40 break-all leading-relaxed">
-                {alphabet}
-              </p>
-            </div>
-          </Reveal>
-        </div>
-
-        <Reveal delay={0.2}>
-          <div className="border-t border-ivory/10 pt-10 space-y-4">
+        {/* Type pairs */}
+        <Reveal delay={0.08} className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="space-y-2">
+            <p className="text-xs font-mono text-ivory/40 uppercase tracking-wider mb-3">Display Serif</p>
             {[
-              { label: 'Display', cls: 'font-display font-bold text-5xl tracking-editorial', sample: 'Heading One' },
-              { label: 'Heading', cls: 'font-display font-semibold text-3xl tracking-refined', sample: 'Heading Two' },
-              { label: 'Subhead', cls: 'font-display text-xl', sample: 'Heading Three' },
-              { label: 'Body', cls: 'font-sans text-base', sample: 'Body text for longer reading' },
-              { label: 'Small', cls: 'font-sans text-sm', sample: 'Small text for captions' },
-              { label: 'Mono', cls: 'font-mono text-xs tracking-wide', sample: 'color-ink: #0E0F14' },
-            ].map((t) => (
-              <div key={t.label} className="flex items-baseline gap-6">
-                <span className="font-sans text-xs text-ivory/30 w-16 shrink-0 uppercase tracking-wide">{t.label}</span>
-                <span className={`${t.cls} text-ivory`}>{t.sample}</span>
+              { size: 'text-4xl', label: 'Heading 1', weight: 'font-bold' },
+              { size: 'text-3xl', label: 'Heading 2', weight: 'font-semibold' },
+              { size: 'text-xl', label: 'Heading 3', weight: 'font-medium' },
+            ].map(({ size, label, weight }) => (
+              <div key={label}>
+                <p className={`font-display ${size} ${weight} leading-tight`}>{label}</p>
+                <p className="text-xs font-mono text-ivory/30">
+                  Playfair Display {size.replace('text-', '')} / {weight}
+                </p>
               </div>
             ))}
+          </div>
+          <div className="space-y-2">
+            <p className="text-xs font-mono text-ivory/40 uppercase tracking-wider mb-3">Body Sans</p>
+            {[
+              { size: 'text-base', label: 'Body Text', style: '' },
+              { size: 'text-sm', label: 'Small Text', style: '' },
+              { size: 'text-xs', label: 'Caption / Mono', style: 'font-mono' },
+            ].map(({ size, label, style }) => (
+              <div key={label}>
+                <p className={`font-sans ${size} ${style} leading-relaxed text-ivory/80`}>
+                  {label}
+                </p>
+                <p className="text-xs font-mono text-ivory/30">
+                  Inter {size.replace('text-', '')} / regular
+                </p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* The quick brown fox */}
+        <Reveal delay={0.12} className="mb-12">
+          <div className="divider-thin border-ivory/10 mb-6" />
+          <p className="font-display text-2xl md:text-4xl leading-snug text-ivory/80">
+            The quick brown fox jumps over the lazy dog.
+          </p>
+        </Reveal>
+
+        {/* Alphabet */}
+        <Reveal delay={0.16}>
+          <p className="font-mono text-xs text-ivory/30 tracking-widest break-all leading-loose">
+            {alphabet}
+          </p>
+          <p className="font-mono text-xs text-ivory/20 tracking-widest mt-2">
+            {numbers}
+          </p>
+        </Reveal>
+
+        {/* Font pairing note */}
+        <Reveal delay={0.2} className="mt-12">
+          <div className="inline-flex gap-8 border border-ivory/10 rounded-xl px-6 py-4">
+            <div>
+              <p className="text-xs font-mono text-ivory/40 mb-1">Primary</p>
+              <p className="font-display text-sm font-semibold">Playfair Display</p>
+            </div>
+            <div className="w-px bg-ivory/10" />
+            <div>
+              <p className="text-xs font-mono text-ivory/40 mb-1">Secondary</p>
+              <p className="font-sans text-sm font-medium text-ivory/80">Inter</p>
+            </div>
+            <div className="w-px bg-ivory/10" />
+            <div>
+              <p className="text-xs font-mono text-ivory/40 mb-1">Mono</p>
+              <p className="font-mono text-sm text-ivory/60">IBM Plex Mono</p>
+            </div>
           </div>
         </Reveal>
       </div>

@@ -1,113 +1,152 @@
 import { motion } from 'framer-motion'
-import Button from '../ui/Button'
-import PaintingPanel from '../ui/PaintingPanel'
-import MemphisDecor from '../ui/MemphisDecor'
-import { motionTokens } from '../../data/motion'
+import { Button } from '../ui/Button'
+import { PaintingPanel } from '../ui/PaintingPanel'
+import { MemphisDecor } from '../ui/MemphisDecor'
+import { Reveal } from '../motion/Reveal'
 
-export default function Hero() {
+export function Hero() {
   return (
-    <section id="home" className="min-h-screen bg-ivory canvas-texture relative overflow-hidden flex items-center pt-16">
-      {/* Background Memphis layer */}
-      <MemphisDecor variant="dots" color="#0E0F14" size={160} className="absolute top-24 left-8 opacity-20" />
-      <MemphisDecor variant="squiggle" color="#8D7CC3" size={200} className="absolute bottom-32 left-16 opacity-30" />
-      <MemphisDecor variant="chips" color="#E9C46A" size={180} className="absolute top-40 right-8 opacity-25 md:hidden" />
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center overflow-hidden bg-ivory pt-16"
+    >
+      {/* Background canvas texture blobs */}
+      <div
+        className="absolute -top-32 -left-32 w-[600px] h-[600px] opacity-20 blur-3xl pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse, #F2D7D9 0%, #C7D8C0 50%, transparent 80%)',
+          borderRadius: '60% 40% 55% 45% / 50% 65% 35% 50%',
+        }}
+        aria-hidden="true"
+      />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full py-20 md:py-0">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-6 items-center min-h-[calc(100vh-4rem)]">
-          {/* Left: Text */}
-          <div className="md:col-span-5 lg:col-span-5 flex flex-col justify-center">
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: motionTokens.duration.base, delay: 0.1, ease: motionTokens.ease.softOut }}
-              className="font-sans text-xs tracking-wide uppercase text-ink/50 mb-6"
-            >
-              Orthography × Memphis × Floral
-            </motion.p>
+      <div className="section-shell grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center w-full">
+        {/* Left — text */}
+        <div className="relative z-10 max-w-xl">
+          {/* Memphis cluster top-left */}
+          <div className="mb-8">
+            <MemphisDecor variant="squiggle" color="#E9C46A" opacity={0.5} size="md" />
+          </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: motionTokens.duration.reveal, delay: 0.2, ease: motionTokens.ease.softOut }}
-              className="font-display text-6xl md:text-7xl lg:text-8xl leading-none tracking-editorial text-ink mb-6"
-            >
+          <Reveal delay={0.05}>
+            <p className="text-xs uppercase tracking-widest text-charcoal/50 font-mono mb-4">
+              Design System &middot; 2024
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.12}>
+            <h1 className="heading-display text-ink mb-6">
               Artful
               <br />
-              <span className="italic font-normal">by</span>
-              <br />
-              Nature.
-            </motion.h1>
+              <em className="not-italic text-deep-green">by Nature.</em>
+            </h1>
+          </Reveal>
 
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: motionTokens.duration.base, delay: 0.4, ease: motionTokens.ease.softOut }}
-              className="font-sans text-base text-ink/65 leading-relaxed mb-8 max-w-sm"
-            >
-              We design thoughtful brand systems and digital experiences inspired by nature, painting, and meaningful stories.
-            </motion.p>
+          <Reveal delay={0.2}>
+            <p className="body-refined max-w-sm mb-10">
+              We design thoughtful brand systems and digital experiences inspired by nature, art, and
+              meaningful stories.
+            </p>
+          </Reveal>
 
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: motionTokens.duration.base, delay: 0.55, ease: motionTokens.ease.softOut }}
-              className="flex flex-wrap gap-3"
-            >
-              <Button variant="primary" size="md" withArrow>View Our Work</Button>
-              <Button variant="secondary" size="md">Learn More</Button>
-            </motion.div>
-          </div>
+          <Reveal delay={0.28}>
+            <div className="flex flex-wrap gap-3">
+              <Button variant="primary" withArrow className="group">
+                View Our Work
+              </Button>
+              <Button variant="secondary">Learn More</Button>
+            </div>
+          </Reveal>
 
-          {/* Right: Painting panel + Memphis */}
-          <div className="md:col-span-7 lg:col-span-7 relative">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.97, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: motionTokens.duration.reveal, delay: 0.3, ease: motionTokens.ease.softOut }}
-              className="relative"
-            >
-              <PaintingPanel
-                tone="blush"
-                showMemphis
-                showSheen
-                aspectRatio="aspect-[5/6] md:aspect-[4/5]"
-                className="w-full"
+          {/* Scroll cue */}
+          <Reveal delay={0.5}>
+            <div className="mt-16 flex items-center gap-3 text-xs text-charcoal/40 font-mono">
+              <motion.div
+                className="w-px h-10 bg-ink/20"
+                animate={{ scaleY: [1, 0.4, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
               />
-              {/* Floating Memphis chips */}
-              <MemphisDecor
-                variant="dots"
-                color="#0E0F14"
-                size={100}
-                className="absolute -top-6 -left-6 opacity-30 hidden md:block"
-              />
-              <MemphisDecor
-                variant="arch"
-                color="#8D7CC3"
-                size={80}
-                className="absolute -bottom-4 -right-4 opacity-40"
-              />
-              {/* Offset paper chip */}
-              <div className="absolute -bottom-6 left-8 bg-ivory border border-ink/8 shadow-card px-4 py-3 rounded-sm">
-                <p className="font-display italic text-sm text-ink/70">Artful systems for brands that bloom.</p>
-              </div>
-            </motion.div>
-          </div>
+              Scroll
+            </div>
+          </Reveal>
         </div>
 
-        {/* Scroll cue */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
-        >
-          <span className="font-sans text-xs text-ink/30 tracking-widest uppercase">Scroll</span>
-          <motion.div
-            className="w-px h-8 bg-ink/20"
-            animate={{ scaleY: [1, 0.4, 1] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+        {/* Right — painting panel */}
+        <div className="relative lg:h-[600px]">
+          {/* Memphis dots cluster */}
+          <div className="absolute -top-4 -right-4 z-10" aria-hidden="true">
+            <MemphisDecor variant="dots" color="#0E0F14" opacity={0.18} size="md" />
+          </div>
+
+          {/* Offset background chip */}
+          <div
+            className="absolute top-8 left-8 right-0 bottom-0 rounded-2xl bg-sage/20"
+            aria-hidden="true"
           />
-        </motion.div>
+
+          <motion.div
+            className="relative h-full min-h-[460px]"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+          >
+            <PaintingPanel
+              tone="blush"
+              showMemphis
+              showSheen
+              className="w-full h-full min-h-[460px]"
+            >
+              {/* Floral abstract composition — CSS-generated */}
+              <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+                {/* Large bloom */}
+                <div
+                  className="absolute w-72 h-72 opacity-40"
+                  style={{
+                    background:
+                      'radial-gradient(ellipse 60% 70% at 55% 45%, #F7F3EE 0%, #E8C4C8 35%, #D4A0A6 65%, transparent 100%)',
+                    borderRadius: '45% 55% 60% 40% / 40% 50% 50% 60%',
+                    top: '10%',
+                    left: '20%',
+                  }}
+                />
+                {/* Leaf shape */}
+                <div
+                  className="absolute w-32 h-48 opacity-50"
+                  style={{
+                    background:
+                      'linear-gradient(160deg, #123B2D 0%, #2D6B4F 40%, #7FA882 100%)',
+                    borderRadius: '50% 5% 50% 5% / 50% 5% 50% 5%',
+                    top: '25%',
+                    right: '18%',
+                    transform: 'rotate(-25deg)',
+                  }}
+                />
+                {/* Second bloom */}
+                <div
+                  className="absolute w-40 h-40 opacity-35"
+                  style={{
+                    background:
+                      'radial-gradient(ellipse, #8D7CC3 0%, #B8ADE0 50%, transparent 80%)',
+                    borderRadius: '55% 45% 40% 60% / 50% 60% 40% 50%',
+                    bottom: '15%',
+                    left: '30%',
+                  }}
+                />
+                {/* Ochre accent brush */}
+                <div
+                  className="absolute w-24 h-8 opacity-60"
+                  style={{
+                    background: 'linear-gradient(90deg, #E9C46A, #D4A84B)',
+                    borderRadius: '40% 60% 60% 40% / 60% 40% 60% 40%',
+                    bottom: '28%',
+                    right: '22%',
+                    transform: 'rotate(-12deg)',
+                  }}
+                />
+              </div>
+            </PaintingPanel>
+          </motion.div>
+        </div>
       </div>
     </section>
   )

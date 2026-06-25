@@ -1,89 +1,102 @@
 import { useState } from 'react'
-import Reveal from '../motion/Reveal'
-import Button from '../ui/Button'
-import PaintingPanel from '../ui/PaintingPanel'
+import { ArrowRight } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Reveal } from '../motion/Reveal'
 import { journalPosts } from '../../data/journal'
-import { motion, AnimatePresence } from 'framer-motion'
 
 const categories = ['All', 'Branding', 'Inspiration', 'Design']
 
-export default function Journal() {
-  const [activeCategory, setActiveCategory] = useState('All')
+export function Journal() {
+  const [filter, setFilter] = useState('All')
 
-  const filtered = activeCategory === 'All'
-    ? journalPosts
-    : journalPosts.filter((p) => p.category === activeCategory)
+  const filtered =
+    filter === 'All' ? journalPosts : journalPosts.filter((p) => p.category === filter)
 
   return (
-    <section id="journal" className="bg-ink canvas-texture section-shell relative overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <Reveal>
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-            <div>
-              <h2 className="font-display text-4xl md:text-5xl tracking-editorial text-ivory brush-underline">
-                Journal
-              </h2>
-              <p className="font-sans text-sm text-ivory/50 mt-3 max-w-md">
-                Notes on color, texture, story, and form.
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`font-sans text-xs px-3 py-1.5 rounded-sm border transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ivory ${
-                    activeCategory === cat
-                      ? 'bg-ivory text-ink border-ivory'
-                      : 'text-ivory/60 border-ivory/20 hover:border-ivory/50 hover:text-ivory'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+    <section id="journal" className="bg-ink text-ivory relative overflow-hidden">
+      <div className="section-shell">
+        {/* Header */}
+        <Reveal className="flex items-end justify-between mb-12">
+          <div>
+            <h2
+              className="font-display text-5xl md:text-6xl font-bold tracking-tightest leading-none"
+              style={{ textDecoration: 'underline', textDecorationColor: '#8D7CC3', textUnderlineOffset: '8px' }}
+            >
+              Journal
+            </h2>
           </div>
+          <a
+            href="#"
+            className="inline-flex items-center gap-2 text-sm text-ivory/60 hover:text-ivory transition-colors group"
+          >
+            View All Articles
+            <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+          </a>
         </Reveal>
 
+        {/* Category filter */}
+        <Reveal delay={0.08} className="flex flex-wrap gap-2 mb-10">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setFilter(cat)}
+              className={`text-xs px-4 py-1.5 rounded-full font-mono transition-all duration-200 ${
+                filter === cat
+                  ? 'bg-ivory text-ink'
+                  : 'bg-ivory/10 text-ivory/60 hover:bg-ivory/20 hover:text-ivory'
+              }`}
+              aria-pressed={filter === cat}
+            >
+              {cat}
+            </button>
+          ))}
+        </Reveal>
+
+        {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <AnimatePresence mode="wait">
-            {filtered.map((post, i) => (
-              <motion.div
-                key={post.id}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.32, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+          {filtered.map((post, i) => (
+            <Reveal key={post.id} delay={i * 0.08}>
+              <motion.article
+                className="group cursor-pointer"
+                whileHover={{ y: -4 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 26 }}
               >
-                <div className="group cursor-pointer bg-ivory/5 border border-ivory/10 rounded-sm overflow-hidden hover:bg-ivory/10 transition-colors">
-                  <PaintingPanel
-                    tone={post.tone}
-                    showSheen
-                    aspectRatio="aspect-[3/2]"
-                    className="w-full"
+                {/* Painting thumbnail */}
+                <div
+                  className="w-full aspect-video rounded-xl mb-5 relative overflow-hidden"
+                  style={{
+                    background: [
+                      'linear-gradient(135deg, #F2D7D9 0%, #C7D8C0 100%)',
+                      'linear-gradient(135deg, #8D7CC3 0%, #F2D7D9 100%)',
+                      'linear-gradient(135deg, #E9C46A 0%, #C7D8C0 100%)',
+                    ][i % 3],
+                  }}
+                  aria-hidden="true"
+                >
+                  <div
+                    className="absolute inset-0 opacity-20"
+                    style={{
+                      backgroundImage:
+                        'radial-gradient(circle, rgba(255,255,255,0.6) 1.5px, transparent 1.5px)',
+                      backgroundSize: '10px 10px',
+                    }}
                   />
-                  <div className="p-5">
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="font-sans text-xs text-ivory/40">{post.date}</span>
-                      <span className="w-1 h-1 rounded-full bg-ivory/20" />
-                      <span className="font-sans text-xs text-ivory/40">{post.category}</span>
-                    </div>
-                    <h3 className="font-display text-lg text-ivory group-hover:text-blush transition-colors mb-2">
-                      {post.title}
-                    </h3>
-                    <p className="font-sans text-sm text-ivory/55 leading-relaxed">{post.excerpt}</p>
-                  </div>
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
 
-        <Reveal delay={0.3}>
-          <div className="mt-10 text-center">
-            <Button variant="ghost" withArrow className="border-ivory/30 text-ivory hover:bg-ivory/10">View All Articles</Button>
-          </div>
-        </Reveal>
+                <p className="text-xs text-ivory/40 font-mono mb-2">
+                  {post.date} &middot; {post.category}
+                </p>
+                <h3 className="font-display text-xl font-semibold leading-snug mb-3 text-ivory group-hover:text-ochre transition-colors">
+                  {post.title}
+                </h3>
+                <p className="text-sm text-ivory/60 leading-relaxed mb-4">{post.excerpt}</p>
+                <span className="inline-flex items-center gap-1.5 text-xs font-mono text-ivory/40 group-hover:text-ochre transition-colors">
+                  {post.readTime} read <ArrowRight size={12} />
+                </span>
+              </motion.article>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   )

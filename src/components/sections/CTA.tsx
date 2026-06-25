@@ -1,46 +1,71 @@
-import Reveal from '../motion/Reveal'
-import Button from '../ui/Button'
-import PaintingPanel from '../ui/PaintingPanel'
-import MemphisDecor from '../ui/MemphisDecor'
+import { Button } from '../ui/Button'
+import { PaintingPanel } from '../ui/PaintingPanel'
+import { MemphisDecor } from '../ui/MemphisDecor'
+import { Reveal } from '../motion/Reveal'
 
-export default function CTA() {
+export function CTA() {
   return (
-    <section className="bg-ivory canvas-texture section-shell relative overflow-hidden">
-      <MemphisDecor variant="squiggle" color="#E9C46A" size={200} className="absolute bottom-16 right-8 opacity-30" />
-      <MemphisDecor variant="arch" color="#8D7CC3" size={120} className="absolute top-12 left-12 opacity-25" />
-
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <Reveal direction="left">
-            <div>
-              <h2 className="font-display text-5xl md:text-6xl leading-none tracking-editorial text-ink mb-6">
-                Let's create
-                <br />
-                <span className="italic font-normal">something</span>
-                <br />
-                beautiful.
-              </h2>
-              <p className="font-sans text-base text-ink/60 mb-8 max-w-sm">
-                We'd love to hear about your project. Let's talk about building a brand that endures.
-              </p>
-              <Button variant="primary" size="lg" withArrow>Get In Touch</Button>
-            </div>
-          </Reveal>
-
-          <Reveal direction="right" delay={0.15}>
-            <div className="relative">
-              <PaintingPanel
-                tone="sage"
-                showMemphis
-                showSheen
-                aspectRatio="aspect-[4/3]"
-                className="w-full"
+    <section className="bg-ivory relative overflow-hidden">
+      <div className="section-shell">
+        <div className="relative rounded-3xl overflow-hidden">
+          <PaintingPanel
+            tone="sage"
+            showMemphis={false}
+            showSheen
+            className="w-full min-h-[480px] flex items-center justify-center"
+          >
+            {/* Floral blooms behind text */}
+            <div className="absolute inset-0" aria-hidden="true">
+              <div
+                className="absolute w-80 h-80 opacity-20 blur-2xl"
+                style={{
+                  background: 'radial-gradient(ellipse, #F7F3EE 0%, #C7D8C0 50%, transparent 80%)',
+                  borderRadius: '60% 40% 55% 45% / 50% 65% 35% 50%',
+                  top: '-10%',
+                  right: '-5%',
+                }}
               />
-              <div className="absolute -top-4 -right-4">
-                <div className="w-12 h-12 impasto-blob bg-ochre opacity-70" aria-hidden="true" />
-              </div>
+              <div
+                className="absolute w-48 h-48 opacity-25 blur-xl"
+                style={{
+                  background: 'radial-gradient(ellipse, #E9C46A 0%, transparent 70%)',
+                  borderRadius: '50% 50% 40% 60%',
+                  bottom: '10%',
+                  left: '5%',
+                }}
+              />
             </div>
-          </Reveal>
+
+            {/* Memphis decorations */}
+            <div className="absolute top-8 left-8" aria-hidden="true">
+              <MemphisDecor variant="dots" color="#123B2D" opacity={0.2} size="sm" />
+            </div>
+            <div className="absolute bottom-8 right-12" aria-hidden="true">
+              <MemphisDecor variant="arch" color="#F7F3EE" opacity={0.3} size="md" />
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 text-center px-8 max-w-2xl mx-auto">
+              <Reveal>
+                <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tightest leading-none text-ink mb-6">
+                  Let’s create something
+                  <br />
+                  <em className="not-italic text-deep-green">beautiful.</em>
+                </h2>
+              </Reveal>
+              <Reveal delay={0.12}>
+                <p className="body-refined mb-8 text-charcoal/70">
+                  Whether you’re building a new brand or refining an existing one, we’d love to hear
+                  your story.
+                </p>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <Button variant="primary" size="lg" withArrow className="group">
+                  Get In Touch
+                </Button>
+              </Reveal>
+            </div>
+          </PaintingPanel>
         </div>
       </div>
     </section>
