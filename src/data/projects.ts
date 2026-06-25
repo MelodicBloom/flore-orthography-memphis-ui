@@ -3,6 +3,7 @@ export interface Project {
   title: string
   category: string
   tone: 'blush' | 'sage' | 'lavender' | 'ochre' | 'ink'
+  year: string
   description: string
 }
 
@@ -12,41 +13,47 @@ export const projects: Project[] = [
     title: 'Verdant',
     category: 'Branding',
     tone: 'sage',
-    description: 'A botanical skincare identity rooted in slow living and natural form.',
+    year: '2024',
+    description: 'A botanical skincare identity rooted in slow, considered craft.',
   },
   {
     id: 'alma-skincare',
     title: 'Alma Skincare',
     category: 'Branding, Packaging',
     tone: 'blush',
-    description: 'Premium packaging and visual identity for a mineral-based skincare line.',
+    year: '2024',
+    description: 'Tender, warm packaging for a handmade apothecary studio.',
   },
   {
     id: 'maison-clarte',
     title: 'Maison Clarté',
     category: 'Web Design',
     tone: 'lavender',
-    description: 'A refined editorial website for an interior design atelier in Paris.',
+    year: '2024',
+    description: 'An editorial web presence for a Paris-based interior atelier.',
   },
   {
     id: 'haru-studio',
     title: 'Haru Studio',
     category: 'Branding',
     tone: 'ochre',
-    description: 'Warm, tactile identity for a ceramics and textile design studio.',
+    year: '2023',
+    description: 'Spring-forward visual identity for a Japanese ceramics collective.',
   },
   {
     id: 'terra-collective',
     title: 'Terra Collective',
     category: 'Art Direction',
     tone: 'sage',
-    description: 'Art direction for a regenerative farming collective and seasonal publication.',
+    year: '2023',
+    description: 'Earth-toned art direction for a regenerative agriculture brand.',
   },
   {
     id: 'solerne',
     title: 'Solerne',
     category: 'Web Design',
-    tone: 'blush',
-    description: 'A sun-drenched digital experience for a boutique Mediterranean travel brand.',
+    tone: 'ink',
+    year: '2023',
+    description: 'A minimal, luminous web system for a fine-fragrance house.',
   },
 ]
