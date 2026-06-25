@@ -2,12 +2,9 @@ name: Build
 
 on:
   push:
-    branches:
-      - main
-      - build/flore-ui-system
+    branches: [main, 'build/flore-ui-system']
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build:
@@ -26,7 +23,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile

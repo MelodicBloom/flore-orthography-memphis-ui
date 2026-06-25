@@ -1,39 +1,20 @@
-# FLORÉ — Orthography × Memphis × Illustrated Floral UI System
+# FLORÉ — Orthography × Memphis × Illustrated Floral × Impasto
 
 > Artful systems for brands that bloom.
 
-A production-ready design-system showcase website built with **Vite + React + TypeScript + Tailwind CSS + Framer Motion**.
+A production-ready **Vite + React + TypeScript + Tailwind** design-system showcase website.
 
-## Visual Direction
+## Stack
 
-- **Brand:** FLORÉ
-- **Aesthetic:** Orthography × Memphis × Illustrated Floral × Impasto Painting
-- **Mood:** Editorial, artful, premium, tactile, botanical, softly experimental
+- [Vite](https://vitejs.dev/) — build tool
+- [React 18](https://react.dev/) — UI
+- [TypeScript](https://www.typescriptlang.org/) — types
+- [Tailwind CSS v3](https://tailwindcss.com/) — styling
+- [Framer Motion](https://www.framer.com/motion/) — animation
+- [Lucide React](https://lucide.dev/) — icons
+- [pnpm](https://pnpm.io/) — package manager
 
-## Palette
-
-| Token | Hex | Usage |
-|---|---|---|
-| Ink | `#0E0F14` | Primary text, headings |
-| Ivory | `#F7F3EE` | Backgrounds |
-| Blush | `#F2D7D9` | Accents, highlights |
-| Sage | `#C7D8C0` | Accents, backgrounds |
-| Lavender | `#8D7CC3` | Accents, links |
-| Ochre | `#E9C46A` | Accents, CTAs |
-| Deep Green | `#123B2D` | Strong accents, buttons |
-| Charcoal | `#222222` | Secondary text, borders |
-
-## Tech Stack
-
-- [Vite](https://vitejs.dev)
-- [React 18](https://react.dev)
-- [TypeScript](https://www.typescriptlang.org)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Framer Motion](https://www.framer.com/motion/)
-- [Lucide React](https://lucide.dev)
-- pnpm
-
-## Getting Started
+## Getting started
 
 ```bash
 pnpm install
@@ -43,32 +24,41 @@ pnpm dev
 ## Scripts
 
 | Command | Description |
-|---|---|
+|---------|-------------|
 | `pnpm dev` | Start dev server |
 | `pnpm build` | Production build |
-| `pnpm preview` | Preview production build |
-| `pnpm typecheck` | TypeScript check |
-| `pnpm lint` | ESLint check |
+| `pnpm preview` | Preview build locally |
+| `pnpm typecheck` | Run TypeScript check |
+| `pnpm lint` | Run ESLint |
+
+## Palette
+
+| Token | Hex |
+|-------|-----|
+| Ink | `#0E0F14` |
+| Ivory | `#F7F3EE` |
+| Blush | `#F2D7D9` |
+| Sage | `#C7D8C0` |
+| Lavender | `#8D7CC3` |
+| Ochre | `#E9C46A` |
+| Deep Green | `#123B2D` |
+| Charcoal | `#222222` |
 
 ## Structure
 
 ```
 src/
-  app/          App root
+  app/App.tsx
   components/
-    layout/     Header, Footer
-    sections/   Page sections
-    ui/         Primitive components
-    motion/     Animation wrappers
-  data/         Tokens, projects, journal, navigation
-  styles/       Global CSS
+    layout/   Header · Footer
+    sections/ Hero · DesignSystem · About · SelectedWork · Journal · TypographySpecimen · CTA
+    ui/       Button · Card · ColorSwatch · PaintingPanel · MemphisDecor
+    motion/   Reveal
+  data/       tokens · projects · journal
+  styles/     globals.css
   main.tsx
 ```
 
-## Approval Gate
-
-All commits, pushes, PRs, and deployments require **Jennipher's approval** before execution.
-
 ---
 
-*FLORÉ Studio — © 2024. All rights reserved.*
+© 2024 FLORÉ Studio. All rights reserved.

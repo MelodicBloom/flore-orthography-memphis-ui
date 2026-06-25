@@ -18,25 +18,19 @@ const config: Config = {
         'cream-stroke': '#EFE5DA',
       },
       fontFamily: {
-        display: ['Playfair Display', 'Cormorant Garamond', 'Georgia', 'serif'],
-        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+        display: ['Playfair Display', 'Georgia', 'serif'],
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'ui-monospace', 'monospace'],
       },
       letterSpacing: {
-        editorial: '-0.045em',
-        refined: '-0.025em',
-        wide: '0.08em',
-      },
-      borderRadius: {
-        organic: '42% 58% 63% 37% / 38% 42% 58% 62%',
+        tightest: '-0.045em',
+        tighter: '-0.025em',
+        editorial: '-0.015em',
       },
       boxShadow: {
         soft: '0 20px 60px rgba(14,15,20,0.08)',
         card: '0 12px 36px rgba(14,15,20,0.12)',
         lifted: '0 30px 90px rgba(14,15,20,0.18)',
-      },
-      backgroundImage: {
-        'canvas-grain': "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\")",
       },
     },
   },
