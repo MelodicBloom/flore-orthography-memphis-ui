@@ -1,58 +1,46 @@
-import { useRef, useEffect, useState, ReactNode } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
-import { motionTokens } from '../../data/motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { cn } from '../../lib/utils'
 
-interface RevealProps {
-  children: ReactNode
-  delay?: number
+export interface RevealProps {
+  children: React.ReactNode
   className?: string
+  delay?: number
   direction?: 'up' | 'down' | 'left' | 'right' | 'none'
+  duration?: number
+  once?: boolean
 }
 
-export default function Reveal({
+export function Reveal({
   children,
-  delay = 0,
   className,
+  delay = 0,
   direction = 'up',
+  duration = 0.6,
+  once = true,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-  const shouldReduceMotion = useReducedMotion()
+  const isInView = useInView(ref, { once, margin: '-80px' })
 
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect() } },
-      { threshold: 0.1 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
-  const offsets: Record<string, { x?: number; y?: number }> = {
-    up: { y: 24 },
-    down: { y: -24 },
-    left: { x: 24 },
-    right: { x: -24 },
-    none: {},
+  const directionOffset = {
+    up: { y: 32, x: 0 },
+    down: { y: -32, x: 0 },
+    left: { y: 0, x: 32 },
+    right: { y: 0, x: -32 },
+    none: { y: 0, x: 0 },
   }
-
-  const initial = shouldReduceMotion
-    ? { opacity: 0 }
-    : { opacity: 0, ...offsets[direction] }
 
   return (
     <motion.div
       ref={ref}
-      initial={initial}
-      animate={visible ? { opacity: 1, x: 0, y: 0 } : initial}
+      className={cn(className)}
+      initial={{ opacity: 0, ...directionOffset[direction] }}
+      animate={isInView ? { opacity: 1, y: 0, x: 0 } : {}}
       transition={{
-        duration: motionTokens.duration.reveal,
+        duration,
         delay,
-        ease: motionTokens.ease.softOut,
+        ease: [0.22, 1, 0.36, 1],
       }}
-      className={className}
     >
       {children}
     </motion.div>

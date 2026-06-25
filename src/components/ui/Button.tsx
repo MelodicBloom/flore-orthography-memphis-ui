@@ -1,62 +1,58 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react'
-import { motion } from 'framer-motion'
+import { forwardRef } from 'react'
 import { ArrowRight } from 'lucide-react'
+import { cn } from '../../lib/utils'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'text'
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant
   size?: ButtonSize
   withArrow?: boolean
-  children: ReactNode
+  asChild?: boolean
 }
 
-const variantClasses: Record<ButtonVariant, string> = {
-  primary: 'bg-ink text-ivory hover:bg-charcoal border border-ink',
-  secondary: 'bg-transparent text-ink border border-ink hover:bg-ink hover:text-ivory',
-  ghost: 'bg-transparent text-ink border border-ink/20 hover:border-ink/60',
-  text: 'bg-transparent text-ink underline-offset-4 hover:underline p-0',
+const variantStyles: Record<ButtonVariant, string> = {
+  primary:
+    'bg-ink text-ivory border border-ink hover:bg-deep-green hover:border-deep-green active:scale-[0.98]',
+  secondary:
+    'bg-transparent text-ink border border-ink hover:bg-ink hover:text-ivory active:scale-[0.98]',
+  ghost:
+    'bg-ivory/60 text-ink border border-ink/20 hover:bg-ivory hover:border-ink/40 active:scale-[0.98]',
+  text: 'bg-transparent text-ink border-0 underline-offset-4 hover:underline p-0',
 }
 
-const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'text-xs px-4 py-2',
-  md: 'text-sm px-6 py-3',
-  lg: 'text-base px-8 py-4',
+const sizeStyles: Record<ButtonSize, string> = {
+  sm: 'px-4 py-2 text-sm gap-1.5',
+  md: 'px-6 py-3 text-sm gap-2',
+  lg: 'px-8 py-4 text-base gap-2.5',
 }
 
-export default function Button({
-  variant = 'primary',
-  size = 'md',
-  withArrow = false,
-  children,
-  className = '',
-  ...props
-}: ButtonProps) {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  { variant = 'primary', size = 'md', withArrow = false, className, children, ...props },
+  ref,
+) {
   return (
-    <motion.button
-      whileHover={{ scale: 1.01 }}
-      whileTap={{ scale: 0.98 }}
-      className={[
-        'inline-flex items-center gap-2 font-sans tracking-wide transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink',
-        variant !== 'text' ? 'rounded-sm' : '',
-        variantClasses[variant],
-        sizeClasses[variant === 'text' ? 'md' : size],
+    <button
+      ref={ref}
+      className={cn(
+        'inline-flex items-center justify-center font-sans font-medium tracking-wide',
+        'rounded-full transition-all duration-200 cursor-pointer select-none',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lavender',
+        'disabled:opacity-40 disabled:pointer-events-none',
+        variantStyles[variant],
+        sizeStyles[size],
         className,
-      ].join(' ')}
+      )}
       {...props}
     >
       {children}
       {withArrow && (
-        <motion.span
-          className="inline-flex"
-          initial={{ x: 0 }}
-          whileHover={{ x: 4 }}
-          transition={{ duration: 0.18 }}
-        >
-          <ArrowRight size={14} strokeWidth={1.5} />
-        </motion.span>
+        <ArrowRight
+          className="transition-transform duration-200 group-hover:translate-x-1"
+          size={size === 'sm' ? 14 : size === 'lg' ? 18 : 16}
+        />
       )}
-    </motion.button>
+    </button>
   )
-}
+})

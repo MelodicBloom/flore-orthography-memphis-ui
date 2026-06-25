@@ -1,27 +1,23 @@
-interface ColorSwatchProps {
+import { cn } from '../../lib/utils'
+
+export interface ColorSwatchProps {
   name: string
   hex: string
-  size?: 'sm' | 'md' | 'lg'
+  className?: string
 }
 
-export default function ColorSwatch({ name, hex, size = 'md' }: ColorSwatchProps) {
-  const sizeClasses = {
-    sm: 'w-10 h-10',
-    md: 'w-14 h-14',
-    lg: 'w-20 h-20',
-  }
-
+export function ColorSwatch({ name, hex, className }: ColorSwatchProps) {
   return (
-    <div className="flex flex-col items-start gap-2">
+    <div className={cn('flex flex-col gap-2 group', className)}>
       <div
-        className={`${sizeClasses[size]} rounded-sm border border-ink/8 shadow-soft`}
+        className="w-full aspect-square rounded-xl border border-ink/8 transition-transform duration-200 group-hover:scale-105 shadow-soft"
         style={{ backgroundColor: hex }}
         role="img"
-        aria-label={`${name} color swatch`}
+        aria-label={`${name} colour swatch`}
       />
-      <div>
-        <p className="text-xs font-sans font-medium text-ink">{name}</p>
-        <p className="text-xs font-mono text-ink/50 uppercase tracking-wide">{hex}</p>
+      <div className="space-y-0.5">
+        <p className="text-xs font-medium text-ink tracking-wide">{name}</p>
+        <p className="text-xs font-mono text-charcoal/50 uppercase">{hex}</p>
       </div>
     </div>
   )

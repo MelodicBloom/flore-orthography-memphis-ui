@@ -1,35 +1,34 @@
-import { ReactNode } from 'react'
-import { motion } from 'framer-motion'
+import { cn } from '../../lib/utils'
 
-interface CardProps {
-  children: ReactNode
+export interface CardProps {
+  children: React.ReactNode
   className?: string
-  hoverable?: boolean
+  elevated?: boolean
   tone?: 'ivory' | 'blush' | 'sage' | 'lavender' | 'ochre' | 'ink'
 }
 
-const toneBg: Record<string, string> = {
+const toneStyles: Record<NonNullable<CardProps['tone']>, string> = {
   ivory: 'bg-ivory',
   blush: 'bg-blush/40',
   sage: 'bg-sage/40',
   lavender: 'bg-lavender/20',
-  ochre: 'bg-ochre/20',
+  ochre: 'bg-ochre/30',
   ink: 'bg-ink text-ivory',
 }
 
-export default function Card({
-  children,
-  className = '',
-  hoverable = true,
-  tone = 'ivory',
-}: CardProps) {
+export function Card({ children, className, elevated = false, tone = 'ivory' }: CardProps) {
   return (
-    <motion.div
-      whileHover={hoverable ? { y: -6, boxShadow: '0 30px 90px rgba(14,15,20,0.18)' } : {}}
-      transition={{ type: 'spring', stiffness: 300, damping: 26 }}
-      className={`${toneBg[tone]} rounded-sm shadow-card overflow-hidden canvas-texture ${className}`}
+    <div
+      className={cn(
+        'rounded-2xl overflow-hidden transition-all duration-300',
+        toneStyles[tone],
+        elevated
+          ? 'shadow-card hover:shadow-lifted hover:-translate-y-1.5'
+          : 'shadow-soft hover:shadow-card hover:-translate-y-0.5',
+        className,
+      )}
     >
       {children}
-    </motion.div>
+    </div>
   )
 }
