@@ -1,57 +1,81 @@
 import { ArrowRight } from 'lucide-react'
-import MemphisDecor from '../ui/MemphisDecor'
+import { MemphisDecor } from '../ui/MemphisDecor'
+import { Reveal } from '../motion/Reveal'
 
-export default function Footer() {
+const footerLinks = {
+  Studio: ['About', 'Approach', 'Services', 'Careers'],
+  Work: ['Portfolio', 'Case Studies', 'Process'],
+  Journal: ['Articles', 'Inspiration', 'News'],
+  Connect: ['hello@flore.studio', '+1 (310) 123-4567', 'Los Angeles, CA'],
+}
+
+export function Footer() {
   return (
-    <footer id="contact" className="bg-deep-green text-ivory canvas-texture relative overflow-hidden">
-      {/* Decorative cream brush stroke top */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ivory/20 to-transparent" />
-      <MemphisDecor variant="dots" color="#F7F3EE" size={100} className="absolute top-8 right-12 opacity-20" />
+    <footer id="contact" className="bg-deep-green text-ivory relative overflow-hidden">
+      {/* Decorative brush stroke top edge */}
+      <div
+        className="absolute top-0 left-0 right-0 h-1 opacity-30"
+        style={{
+          background:
+            'linear-gradient(90deg, transparent, #C7D8C0 20%, #E9C46A 50%, #C7D8C0 80%, transparent)',
+        }}
+      /}
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-20">
+      {/* Memphis dots background */}
+      <div className="absolute top-12 right-16 opacity-10" aria-hidden="true">
+        <MemphisDecor variant="dots" color="#F7F3EE" size="lg" opacity={1} />
+      </div>
+
+      <div className="section-shell">
         {/* Newsletter */}
-        <div id="newsletter" className="mb-16 pb-16 border-b border-ivory/10">
-          <p className="font-sans text-xs tracking-wide uppercase text-ivory/40 mb-3">Stay Inspired</p>
-          <h3 className="font-display text-2xl md:text-3xl text-ivory mb-2">
-            Notes on color, texture,{' '}
-            <span className="italic">and form.</span>
-          </h3>
-          <p className="font-sans text-sm text-ivory/60 mb-6">Subscribe to our newsletter for thoughts, updates, and inspiration.</p>
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="flex flex-col sm:flex-row gap-3 max-w-md"
-          >
-            <input
-              type="email"
-              placeholder="Email address"
-              aria-label="Email address"
-              className="flex-1 bg-ivory/10 border border-ivory/20 text-ivory placeholder-ivory/40 text-sm px-4 py-3 rounded-sm focus:outline-none focus:border-ivory/60 transition-colors"
-            />
-            <button
-              type="submit"
-              className="bg-ivory text-deep-green px-5 py-3 text-sm font-sans rounded-sm hover:bg-blush transition-colors flex items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ivory"
+        <Reveal className="mb-20">
+          <div className="max-w-xl">
+            <p className="text-xs uppercase tracking-widest text-ivory/50 mb-3 font-mono">
+              Stay inspired
+            </p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight mb-6">
+              Subscribe to our newsletter
+              <span className="block text-ivory/60 font-normal text-xl mt-1">
+                Thoughts, updates and inspiration.
+              </span>
+            </h2>
+            <form
+              className="flex gap-3"
+              onSubmit={(e) => e.preventDefault()}
+              aria-label="Newsletter signup"
             >
-              Subscribe <ArrowRight size={14} strokeWidth={1.5} />
-            </button>
-          </form>
-        </div>
+              <input
+                type="email"
+                placeholder="Email address"
+                className="flex-1 bg-ivory/10 text-ivory placeholder-ivory/40 border border-ivory/20 rounded-full px-5 py-3 text-sm focus:outline-none focus:border-ochre transition-colors"
+                aria-label="Email address"
+              />
+              <button
+                type="submit"
+                className="bg-ochre text-ink rounded-full px-6 py-3 text-sm font-medium hover:bg-ivory hover:text-ink transition-all duration-200 flex items-center gap-2"
+              >
+                Subscribe <ArrowRight size={14} />
+              </button>
+            </form>
+          </div>
+        </Reveal>
 
-        {/* Footer columns */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-          {[
-            { heading: 'Studio', links: ['About', 'Approach', 'Services', 'Careers'] },
-            { heading: 'Work', links: ['Portfolio', 'Case Studies', 'Process'] },
-            { heading: 'Journal', links: ['Articles', 'Inspiration', 'News'] },
-            { heading: 'Connect', links: ['hello@flore.studio', '+1 (310) 123-4567', 'Los Angeles, CA'] },
-          ].map((col) => (
-            <div key={col.heading}>
-              <p className="font-sans text-xs tracking-wide uppercase text-ivory/40 mb-4">{col.heading}</p>
-              <ul className="space-y-2">
-                {col.links.map((link) => (
+        {/* Divider */}
+        <div className="border-t border-ivory/10 mb-16" />
+
+        {/* Link columns */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
+          {Object.entries(footerLinks).map(([section, links]) => (
+            <div key={section}>
+              <p className="text-xs uppercase tracking-widest text-ivory/40 mb-4 font-mono">
+                {section}
+              </p>
+              <ul className="space-y-3">
+                {links.map((link) => (
                   <li key={link}>
                     <a
                       href="#"
-                      className="font-sans text-sm text-ivory/70 hover:text-ivory transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ivory"
+                      className="text-sm text-ivory/70 hover:text-ivory transition-colors duration-150"
                     >
                       {link}
                     </a>
@@ -63,21 +87,29 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pt-8 border-t border-ivory/10">
-          <span className="font-display text-lg tracking-editorial">FLORÉ</span>
-          <p className="font-sans text-xs text-ivory/40">&copy; 2024 Floré Studio. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            {['Instagram', 'Pinterest', 'Behance', 'LinkedIn'].map((social) => (
+        <div className="border-t border-ivory/10 pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <span className="font-display text-2xl font-bold tracking-tightest">
+              FLORÉ
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-ochre ml-1 mb-1" />
+            </span>
+            <p className="text-xs text-ivory/40 mt-1">
+              We blend art and strategy to build brands that bloom.
+            </p>
+          </div>
+          <div className="flex items-center gap-6">
+            {['Instagram', 'Pinterest', 'Behance', 'LinkedIn'].map((soc) => (
               <a
-                key={social}
+                key={soc}
                 href="#"
-                className="font-sans text-xs text-ivory/50 hover:text-ivory transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ivory"
-                aria-label={social}
+                className="text-xs text-ivory/40 hover:text-ivory/80 transition-colors"
+                aria-label={soc}
               >
-                {social}
+                {soc}
               </a>
             ))}
           </div>
+          <p className="text-xs text-ivory/30">&copy; 2024 FLORÉ Studio. All rights reserved.</p>
         </div>
       </div>
     </footer>
