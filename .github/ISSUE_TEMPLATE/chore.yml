@@ -1,0 +1,16 @@
+name: Chore / Maintenance
+description: Refactor, dependency updates, or maintenance tasks
+labels: ["chore"]
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: Task Summary
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+    validations:
+      required: false
