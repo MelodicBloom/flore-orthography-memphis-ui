@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "repository": "MelodicBloom/flore-orthography-memphis-ui",
+  "classification": {
+    "archetype": "visual-library",
+    "maturity": "candidate",
+    "criticality": "moderate"
+  },
+  "runtime": {
+    "node": "24",
+    "package_manager": "pnpm",
+    "lockfile": "pnpm-lock.yaml"
+  },
+  "commands": {
+    "lint": "pnpm run lint",
+    "typecheck": "pnpm run typecheck",
+    "test": null,
+    "build": "pnpm run build"
+  },
+  "surfaces": {
+    "static": [
+      "eslint",
+      "typescript",
+      "production-build"
+    ],
+    "behavioral": [],
+    "visual": [
+      "manual-visual-review"
+    ],
+    "accessibility": [
+      "not-yet-automated"
+    ],
+    "performance": [
+      "not-yet-automated"
+    ],
+    "deployment": []
+  },
+  "promotion": {
+    "mode": "observe",
+    "required_gates": [
+      "frozen-install",
+      "typecheck",
+      "lint",
+      "build",
+      "artifact-digest"
+    ],
+    "human_approval": true
+  },
+  "evidence": {
+    "retention_days": 30,
+    "artifact_paths": [
+      ".automation-evidence/",
+      "dist/"
+    ],
+    "known_omissions": [
+      "No automated test script is declared in package.json; verification must record tests as not declared rather than passed.",
+      "Visual, accessibility, and performance checks remain manual in this first consolidation slice."
+    ]
+  }
+}
