@@ -8,7 +8,7 @@ FLORÉ is a production-ready design system built at the collision of four aesthe
 
 The result is a visual language that is simultaneously rigorous and exuberant, systematic and alive.
 
-**Live:** Vercel · **Stack:** Vite · React 18 · TypeScript · Tailwind CSS v3 · Framer Motion · **Org:** [MelodicBloom](https://github.com/MelodicBloom)
+**Live:** [https://flore-orthography-memphis-ui.vercel.app](https://flore-orthography-memphis-ui.vercel.app) · **Stack:** Vite · React 18 · TypeScript · Tailwind CSS v3 · Framer Motion · **Org:** [MelodicBloom](https://github.com/MelodicBloom)
 
 ---
 
